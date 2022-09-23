@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import React from 'react';
 import classes from './AuthForm.module.css'
-const AuthForm = () => {
-    const [isLogin, setIsLogin] = useState(true);
+const AuthForm: React.FC = () => {
+    const [isLogin, setIsLogin] = useState<boolean>(true);
 
     const switchAuthModeHandler = () => {
         setIsLogin((prevState) => !prevState);
