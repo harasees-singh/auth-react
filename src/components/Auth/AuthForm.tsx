@@ -1,9 +1,12 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import React from 'react';
 import classes from './AuthForm.module.css'
 import LoadingSpinner from '../UI/LoadingSpinner';
+import AuthContext from '../../store/auth-context';
 const AuthForm: React.FC = () => {
     const [isLogin, setIsLogin] = useState<boolean>(true);
+
+    const AuthCTX = useContext(AuthContext);
 
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -58,9 +61,10 @@ const AuthForm: React.FC = () => {
                         throw new Error(errorMessage);
                     })
                 }
-            }).then( (data) => {
-                console.log(data);
-            }).catch( (err) => {
+            }).then((data) => {
+                // console.log(data);
+                AuthCTX.login(data.idToken);
+            }).catch((err) => {
                 alert(err.message);
             });
     }
