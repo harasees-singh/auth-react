@@ -1,18 +1,26 @@
-import { useContext } from "react";
-import AuthContext from "../../store/auth-context";
-
-export const changePassword = (newPassword: string) => {
+export const changePassword = (newPassword: string, idToken: string) => {
     const url = 'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCkdzvvoTzBF7cPSlkjuB4TULSRIfoFcIw';
-    const AuthCTX = useContext(AuthContext);
     fetch(url, {
         method: 'POST',
         body: JSON.stringify({
-            idToken: AuthCTX.token,
+            idToken: idToken,
             password: newPassword,
             returnSecureToken: false,
         }),
         headers: {
             'Content-Type': 'application/json'
         }
-    }).then()
+    }).then((res) => {
+        if(res.ok){
+
+        }
+        else{
+            return res.json().then( (data) => {
+                throw new Error(data.error.message)
+            })
+        }
+    }).catch( (err) => {
+        // alert(err.message)
+        console.log(err.message)
+    })
 }
