@@ -2,10 +2,12 @@ import { useState, useRef, useContext } from 'react';
 import React from 'react';
 import classes from './AuthForm.module.css'
 import LoadingSpinner from '../UI/LoadingSpinner';
+import {useHistory} from 'react-router-dom'
 import AuthContext from '../../store/auth-context';
 const AuthForm: React.FC = () => {
     const [isLogin, setIsLogin] = useState<boolean>(true);
 
+    const history = useHistory();
     const AuthCTX = useContext(AuthContext);
 
     const emailRef = useRef<HTMLInputElement>(null);
@@ -64,6 +66,7 @@ const AuthForm: React.FC = () => {
             }).then((data) => {
                 // console.log(data);
                 AuthCTX.login(data.idToken);
+                history.replace('/')
             }).catch((err) => {
                 alert(err.message);
             });
