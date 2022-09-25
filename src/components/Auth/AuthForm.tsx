@@ -65,7 +65,8 @@ const AuthForm: React.FC = () => {
                 }
             }).then((data) => {
                 // console.log(data);
-                AuthCTX.login(data.idToken);
+                const expTime = new Date(new Date().getTime() + (+data.expiresIn * 1000));
+                AuthCTX.login(data.idToken, expTime);
                 history.replace('/')
             }).catch((err) => {
                 alert(err.message);

@@ -8,6 +8,11 @@ const MainNavigation = () => {
     const AuthCTX = useContext(AuthContext);
     const { isLoggedIn } = AuthCTX;
 
+    const logoutHandler = () => {
+        AuthCTX.logout();   
+        // add navigation guards
+
+    }
     return (
         <header className={classes.header}>
 
@@ -21,7 +26,7 @@ const MainNavigation = () => {
                         <Link to='/profile'>Profile</Link>
                     </li>}
                     {isLoggedIn && <li>
-                        <button>Logout</button>
+                        <button onClick={logoutHandler}>Logout</button>
                     </li>}
                 </ul>
             </nav>
